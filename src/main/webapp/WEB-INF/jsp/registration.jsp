@@ -11,24 +11,33 @@
 <head>
     <title>Registration</title>
 </head>
-<body>
-    <h1>Registration</h1>
-        <form:form>
-            <table>
-                <tr>
-                    <td>
-                        Name:
-                    </td>
-                    <td>
-                        <form:input path="name" />
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <input type="submit" value="Add Registration" >
-                    </td>
-                </tr>
-            </table>
-        </form:form>
-</body>
+    <body>
+        <h1>Registration</h1>
+<%--        if modelAttribute is missing 2021-11-28 13:04:55.419 ERROR 64309 --- [nio-8080-exec-3] o.s.b.w.servlet.support.ErrorPageFilter : Forwarding to error page from request [/registration] due to exception [An exception occurred processing [/WEB-INF/jsp/registration.jsp] at line [23]
+20: Name:
+21: </td>
+22: <td>
+23: <form:input path="name"/>
+24: </td>
+25: </tr>
+26: <tr>
+Stacktrace:] is shown in the Services window of IntelliJ--%>
+            <form:form modelAttribute="registration">
+                <table>
+                    <tr>
+                        <td>
+                            Name:
+                        </td>
+                        <td>
+                            <form:input path="name" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="submit" value="Add Registration" >
+                        </td>
+                    </tr>
+                </table>
+            </form:form>
+    </body>
 </html>
