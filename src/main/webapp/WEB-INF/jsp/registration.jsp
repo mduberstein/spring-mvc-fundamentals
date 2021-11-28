@@ -34,7 +34,7 @@ Stacktrace:] is shown in the Services window of IntelliJ--%>
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <input type="submit" value="Add Registration" />
+                            <input type="submit" value="Add Registration" >
                         </td>
                     </tr>
                 </table>
