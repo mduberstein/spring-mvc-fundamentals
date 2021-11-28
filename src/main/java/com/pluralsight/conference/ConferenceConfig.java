@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
@@ -24,6 +25,18 @@ public class ConferenceConfig implements WebMvcConfigurer {
         return bean;
     }
 
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        WebMvcConfigurer.super.addResourceHandlers(registry); // auto generated code
+        registry.addResourceHandler("/files/**")
+                .addResourceLocations("/WEB-INF/pdf/");
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(localeChangeInterceptor());
+    }
+
     // ties the user session with a locale
     @Bean
     public LocaleResolver localeResolver() {
@@ -39,12 +52,5 @@ public class ConferenceConfig implements WebMvcConfigurer {
         LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
         lci.setParamName("lang");
         return lci;
-    }
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        WebMvcConfigurer.super.addResourceHandlers(registry); // auto generated code
-        registry.addResourceHandler("/files/**")
-                .addResourceLocations("/WEB-INF/pdf/");
     }
 }
