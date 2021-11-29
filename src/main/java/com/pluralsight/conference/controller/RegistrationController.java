@@ -20,6 +20,6 @@ public class RegistrationController {
 //    @RequestMapping(value = "registration", method = RequestMethod.POST) // ALT_2
     public String addRegistration(@ModelAttribute("registration") Registration registration) {
         System.out.println("Registration: " + registration.getName());
-        return "registration";
+        return "redirect:registration";
     }
 }
