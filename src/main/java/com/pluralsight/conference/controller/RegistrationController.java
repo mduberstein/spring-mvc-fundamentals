@@ -21,5 +21,7 @@ public class RegistrationController {
     public String addRegistration(@ModelAttribute("registration") Registration registration) {
         System.out.println("Registration: " + registration.getName());
         return "redirect:registration";
+        // ALT_1 without redirect
+        // return "registration";
     }
 }
