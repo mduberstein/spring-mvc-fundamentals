@@ -14,6 +14,8 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.spring5.view.ThymeleafView;
+import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
 import java.util.Locale;
 
@@ -58,10 +60,21 @@ public class ConferenceConfig implements WebMvcConfigurer {
 //        2 lines equivalent to prefix and suffix lines of application.properties file
         bean.setPrefix("/WEB-INF/jsp/");
         bean.setSuffix(".jsp");
-        bean.setOrder(0);           // a must, in case multiple ViewResolvers are defined
+        // ALT_1 Before thymeleaf
+        // bean.setOrder(0);           // a must, in case multiple ViewResolvers are defined
+        // ALT_2 Breaking .jsp functionality to get Thymeleaf to work
+        // getting thymeleaf and jsp to work together is possible but outside the course scope
+        bean.setOrder(1);
         return bean;
     }
 
+    @Bean
+    public ViewResolver thymeleafViewResolver() {
+        ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+        viewResolver.setTemplateEngine(templateEngine());
+        viewResolver.setOrder(0);
+        return viewResolver;
+    }
     @Bean
     public SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();

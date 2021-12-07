@@ -14,4 +14,13 @@ public class GreetingController {
         // this will cause greeting.jsp page to be displayed
         return "greeting";
     }
+
+    @GetMapping("thyme")
+    public String thyme (Map<String, Object> model) {
+        // will display "Hello from Greetings Controller, Thymeleaf" instead of ${message} in the thyme.html page
+        model.put("message", "Hello from Greetings Controller, Thymeleaf");
+        // this will cause greeting.jsp page to be displayed
+        return "thyme";
+    }
+
 }
