@@ -1,5 +1,7 @@
 package com.pluralsight.conference;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
@@ -10,20 +12,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 
 import java.util.Locale;
 
 @Configuration
 public class ConferenceConfig implements WebMvcConfigurer {
-    @Bean
-    public ViewResolver viewResolver() {
-        InternalResourceViewResolver bean = new InternalResourceViewResolver();
-//        2 lines equivalent to prefix and suffix lines of application.properties file
-        bean.setPrefix("/WEB-INF/jsp/");
-        bean.setSuffix(".jsp");
-        bean.setOrder(0);           // a must, in case multiple ViewResolvers are defined
-        return bean;
-    }
+
+    @Autowired
+    private ApplicationContext applicationContext;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -53,4 +50,25 @@ public class ConferenceConfig implements WebMvcConfigurer {
         lci.setParamName("lang");
         return lci;
     }
+
+    @Bean
+    public ViewResolver viewResolver() {
+        InternalResourceViewResolver bean = new InternalResourceViewResolver();
+//        2 lines equivalent to prefix and suffix lines of application.properties file
+        bean.setPrefix("/WEB-INF/jsp/");
+        bean.setSuffix(".jsp");
+        bean.setOrder(0);           // a must, in case multiple ViewResolvers are defined
+        return bean;
+    }
+
+    @Bean
+    public SpringResourceTemplateResolver templateResolver() {
+        SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
+        templateResolver.setApplicationContext(applicationContext);
+        templateResolver.setPrefix("/WEB-INF/views/");
+        templateResolver.setSuffix(".html");
+        return templateResolver;
+    }
+
+
 }
