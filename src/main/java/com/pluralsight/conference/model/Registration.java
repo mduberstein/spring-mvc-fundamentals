@@ -1,5 +1,7 @@
 package com.pluralsight.conference.model;
 
+import javax.validation.constraints.NotEmpty;
+
 public class Registration {
     public String getName() {
         return name;
@@ -9,6 +11,7 @@ public class Registration {
         this.name = name;
     }
 
+    @NotEmpty
     private String name;
 
 
